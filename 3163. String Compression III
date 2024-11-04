@@ -1,0 +1,68 @@
+// Brute Force to --> optimized
+
+class Solution {
+//     public String compressedString(String word) {
+//         if(word.length()<1){
+//             return "";
+//         }else if(word.length()==1){
+//             return "1" + word.charAt(0);
+//         }
+//         String comp = "";
+//         int count = 1;
+//         for(int i = 1; i<word.length();i++){
+//             if(count == 9 ){
+//                 comp+="9"+word.charAt(i-1);
+//                 count = 0;
+//             }
+//             else if(word.charAt(i) != word.charAt(i-1)){
+//                 comp+=String.valueOf(count)+word.charAt(i-1);
+//                 count = 1;
+//             }
+
+//             if(word.charAt(i) == word.charAt(i-1)){
+//                 count++;
+//             }
+//             else{
+//                 count = 1;
+//             }
+
+//             if(i == (word.length()-1)){
+//                 comp+=String.valueOf(count)+word.charAt(i);
+//                 count = 1;
+//             }
+
+
+//         }
+//         return comp;
+//     }
+// }
+
+
+// Optimized :
+
+class Solution {
+    public String compressedString(String word) {
+        StringBuilder sb=new StringBuilder();
+        int count=0,j=0;
+        for(int i=0;i<word.length();++i){
+            j=i;
+            char c=word.charAt(i);
+            while(j<word.length() && word.charAt(j)==c){
+                ++count;
+                ++j;
+            }
+            while(count>9){
+                sb.append('9');
+                sb.append(c);
+                count-=9;
+
+            }
+            sb.append((char)(count+'0'));
+            sb.append(c);
+            count=0;
+            i=j-1;
+
+        }
+        return sb.toString();
+    }
+}
