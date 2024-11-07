@@ -1,0 +1,25 @@
+// Counting bits at each index and adding to result array. the max combination possible is the max combination with atleast one bit set at a particular index.
+
+class Solution {
+    public int largestCombination(int[] candidates) {
+        int[] bitsArray = new int[32];
+        int answer = 0;
+        for(int candidate:candidates){
+            find(candidate,bitsArray);
+        }
+        for(int i = 0 ; i < 32 ; i++){
+            answer = Math.max(answer,bitsArray[i]);
+        }
+        return answer;
+        
+    }
+
+    public void find(int candidate, int[] bitsArray) {
+        int j = 31;
+        while(candidate>0){
+            bitsArray[j]+=(candidate&1);
+            candidate>>=1;
+            j--;
+        }
+    }
+}
