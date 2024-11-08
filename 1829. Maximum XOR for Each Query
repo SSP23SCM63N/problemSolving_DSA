@@ -1,0 +1,46 @@
+// OPTIMIZED ::
+public class Solution {
+    public int[] getMaximumXor(int[] nums, int maximumBit) {
+        int length = nums.length;
+        int maxXorValue = (1 << maximumBit) - 1;
+        int[] result = new int[length];
+        int cumulativeXor = 0;
+
+        for (int num : nums) {
+            cumulativeXor ^= num;
+        }
+
+        for (int i = 0; i < length; i++) {
+            result[i] = cumulativeXor ^ maxXorValue;
+            cumulativeXor ^= nums[length - 1 - i];
+        }
+
+        return result;
+    }
+}
+
+//BRUTE FORCE ::
+// class Solution {
+//     public int[] getMaximumXor(int[] nums, int maximumBit) {
+//         int maximized = (1 << maximumBit) - 1;
+//         int len = nums.length;
+//         int[] answer = new int[len];
+//         int[] result = xored(nums);
+
+//         for (int i = len - 1; i >= 0; i--) {
+//             int currentXor = result[i];
+//             answer[len - 1 - i] = currentXor ^ maximized;
+//         }
+
+//         return answer;
+//     }
+
+//     public int[] xored(int[] nums) {
+//         int[] result = new int[nums.length];
+//         result[0] = nums[0];
+//         for (int i = 1; i < nums.length; i++) {
+//             result[i] = result[i - 1] ^ nums[i];
+//         }
+//         return result;
+//     }
+// }
